@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+    />
+    <link rel="stylesheet" href="/App/assets/style.css" />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+
+    <title>Detalhes</title>
+  </head>
+  <body>
+    <nav>
+      <div class="nav-wrapper mainBackground px-1">
+        <a href="#" class="brand-logo">USERBOX</a>
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+          <li><a>Menu</a></li>
+          <li><a>Renovar Licença</a></li>
+          <li class="flex">
+            <i class="material-icons">login</i><a href="/">Sair</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="container py-1 containerDetails">
+      <div class="row">
+        <div id="treinamentos" class="flex flex-col col s7 m-1">
+          <h4 class="mainColor">Treinamentos</h4>
+          <a class="btn modal-trigger mainBackground" href="#modal1">Adicionar</a>
+
+          <div id="videos" class="row">
+            {% for video in user.produto.videos %}
+            <div class="col s6 card">
+              <iframe  src="https://www.youtube.com/embed/TFzkbos0oeo"> </iframe>
+              
+                <a href={{"/deleteVideo/#{video.id}/#{user.id}"}} class="btn red">remover</a  >
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+
+        <div id="detalhes" class="col s4 m-1 flex flex-col justify-between">
+          <h4 class="mainColor">Minha Conta</h4>
+          <div class="col s12 card">
+            <div class="col s12 card">{{ user.name }}</div>
+            <div class="col s12 card">{{ user.email }}</div>
+            <div class="col s12 card">{{ user.phone }}</div>
+            <div>
+              <b><h5>Licença</h5></b>
+              <h6>{{user.produto.key}}</h6>
+            </div>
+            <div>
+              <b><h5>Data Compra</h5></b>
+              <h6>{{ user.produto.purchased }}</h6>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="footer">
+      <footer class="page-footer mainBackground">
+        <div class="container">
+          <div class="row center-align">
+            Userbox - Todos os direitos reservados
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <div id="modal1" class="modal">
+      <div class="modal-content">
+        <h4>Adicionar Video de treinamento</h4>
+      </div>
+      <div class="modal-footer">
+        <form method="POST" action="/addVideo">
+           <input type="text" hidden name="userId" value={{user.id}}>
+           <input type="text" hidden name="productId" value={{user.produto.id}}>
+          
+           <div class="row">
+            <div class="input-field col s8">
+              <input id="link" name="link" type="text" class="validate" />
+              <label for="link">Link</label>
+             </div>
+
+             <button type="submit" class="waves-effect waves-light btn mainBackground">Adicionar</button>
+            </div>
+            
+        </form>
+      </div>
+    </div>
+  </body>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <script src="/App/assets/script.js"></script>
+</html>
