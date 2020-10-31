@@ -11,7 +11,6 @@ class ProductMigration{
       $table->increments('id');
       $table->string('key');
       $table->string('purchased');
-      $table->string('phone');
       $table->integer('user_id')->nullable()->unsigned();
       $table->timestamps();
 
